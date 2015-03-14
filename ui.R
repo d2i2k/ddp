@@ -78,13 +78,13 @@ shinyUI(
                             
                             p("Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391-411.")
                    ),
-                   tabPanel("Instructions",
+                   tabPanel("Instructions ",
                             a(""),
                             hr(),
                             h3("Select variable on the dropdown menu (left) of the screen"),
-                            h3("click -Boxplot- to see the relationship variable vs performance"),
-                            h3("click -Regression Model- to see the results of the Linear Model"),
-                            h3("check/uncheck -Show BoxPlot's outliers- to supress /show outliners")
+                            h3("Click -Boxplot- to see the relationship variable vs performance (MPG)"),
+                            h3("Click -Regression Model- to see the results of the Linear Model"),
+                            h3("Check/uncheck -Show BoxPlot's outliers- to suppress/show outliners")
                    )
         )
 )
