@@ -1,0 +1,74 @@
+---
+title       : Developing Data Products mtcars
+subtitle    : Relationship between variables (Predictors) and miles per gallon (MPG) 
+author      : Jorge Gonzalez
+job         : Project Manager, Lean Six Sigma Black Belt
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Project Objective
+
+Motor Trend, an automobile trend magazine is interested in exploring the relationship between a set of variables and miles per gallon (MPG) outcome. In this project, we will analyze the mtcars dataset (Shown below) from the 1974 Motor Trend US magazine to find the variable that  have more impact in the car performance (MPG).
+```{r,echo=FALSE}
+data(mtcars)
+str(mtcars)
+```
+
+--- .class #id 
+
+## Exploratory analysis
+
+Boxplots were produced to show the difference between variables in terms of MPG. As an example the plot below show the variable "transmission" vs MPG. To see other variables  impact click [shiny application](https://developmentdataproducts.shinyapps.io/ddp-master/).
+
+```{r,echo=FALSE}
+data(mtcars)
+mtcars$am <- factor(mtcars$am, labels = c("Automatic", "Manual"))
+boxplot(mpg ~ am, data = mtcars,xlab = "Transmission type", ylab = "Miles per gallon",
+ main = "MPG vs Transmission", col = c("red", "steelblue"), 
+ names = c("Automatic", "Manual"))
+```
+
+
+---
+
+## Regression Model 
+
+One of the most significant predictors in determining the MPG was the type of transmission  (am). The summary for this model is show in the [shiny application](https://developmentdataproducts.shinyapps.io/ddp-master/) under the "Regression model" tab. (select the variable transmission (am) and check intercept = 7.245)
+
+```{r}
+lm(formula = mpg ~ am, data = mtcars)
+```                  
+
+---
+
+## Conclusion
+
+The transmission type of a car has a significant effect on its fuel efficiency.
+
+
+
+
+
+
+
+
+
+
+Hope you enjoyed this presentation; slidify and shiny are amazing products.
+
+
+Thanks to Coursera for providing the Data Science Specialization.
+
+
+
+
+
+
+
+
+
