@@ -1,7 +1,7 @@
 library(shiny)
 
 shinyUI(
-        navbarPage("Development Data Products - Shiny Application",
+        navbarPage("Developing Data Products - Shiny Application",
                    tabPanel("Analysis",
                             fluidPage(
                                     titlePanel("Relationship between variables (Predictors) and miles per gallon (MPG)"),
@@ -62,8 +62,8 @@ shinyUI(
                             h3("Format"),
                             p("A data frame from R dataset package."),
                             
-                            p("  [, 1]   mpg         Miles/(US) gallon"),
-                            p("  [, 2]         cyl	 Number of cylinders"),
+                            p("  [, 1]   mpg     Miles/(US) gallon"),
+                            p("  [, 2]   cyl	 Number of cylinders"),
                             p("  [, 3]	 disp	 Displacement (cu.in.)"),
                             p("  [, 4]	 hp	 Gross horsepower"),
                             p("  [, 5]	 drat	 Rear axle ratio"),
@@ -78,13 +78,15 @@ shinyUI(
                             
                             p("Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391-411.")
                    ),
-                   tabPanel("Instructions ",
+                   tabPanel("Instructions",
                             a(""),
                             hr(),
-                            h3("Select variable on the dropdown menu (left) of the screen"),
-                            h3("Click -Boxplot- to see the relationship variable vs performance (MPG)"),
-                            h3("Click -Regression Model- to see the results of the Linear Model"),
-                            h3("Check/uncheck -Show BoxPlot's outliers- to suppress/show outliners")
+                            h2("Instructions"),
+                            
+                            h4(" - Select variable on the dropdown menu (left) of the screen"),
+                            h4(" - click -Boxplot- to see the relationship variable vs performance"),
+                            h4(" - click -Regression Model- to see the results of the Linear Model"),
+                            h4(" - check/uncheck -Show BoxPlot's outliers- to supress /show outliners")
                    )
         )
 )
