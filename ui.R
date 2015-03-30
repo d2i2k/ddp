@@ -1,92 +1,53 @@
-library(shiny)
-
+   library(shiny)
 shinyUI(
-        navbarPage("Developing Data Products - Shiny Application",
-                   tabPanel("Analysis",
-                            fluidPage(
-                                    titlePanel("Relationship between variables (Predictors) and miles per gallon (MPG)"),
-                                    sidebarLayout(
-                                            sidebarPanel(
-                                                    selectInput("variable", "Select Variable",
-                                                                c("Number of cylinders" = "cyl",
-                                                                  "Displacement (cu.in.)" = "disp",
-                                                                  "Gross horsepower" = "hp",
-                                                                  "Rear axle ratio" = "drat",
-                                                                  "Weight (lb/1000)" = "wt",
-                                                                  "1/4 mile time" = "qsec",
-                                                                  "V/S" = "vs",
-                                                                  "Transmission" = "am",
-                                                                  "Number of forward gears" = "gear",
-                                                                  "Number of carburetors" = "carb"
-                                                                )),
-                                                    
-                                                    checkboxInput("outliers", "Show BoxPlot's outliers", FALSE)
-                                            ),
-                                            
-                                            mainPanel(
-                                                    h3(textOutput("caption")),
-                                                    
-                                                    tabsetPanel(type = "tabs", 
-                                                                tabPanel("BoxPlot", plotOutput("mpgBoxPlot")),
-                                                                tabPanel("Regression model", 
-                                                                         plotOutput("mpgPlot"),
-                                                                         verbatimTextOutput("fit")
-                                                                )
-                                                    )
-                                            )
-                                    )
-                            )
-                   ),
-                   tabPanel("Summary",
-                            h2("Executive Summary"),
-                            hr(),
-                            h3("Motor Trend, an automobile trend magazine is interested in exploring the relationship between a set of
-                                variables and miles per gallon (MPG) outcome. In this project, we will analyze the mtcars dataset from the
-                                1974 Motor Trend US magazine"),
-                            helpText("Using linear regression analysis, we determine that there is a signficant difference between the mean MPG for
-                                automatic and manual transmission cars. Manual transmissions achieve a higher value of MPG compared
-                                to automatic transmission. This increase is approximately 1.8 MPG when switching from an automatic
-                                     transmission to a manual one, with all else held constant."),
-                            h3("Note"),
-                            p("Data frame mtcars from R dataset - library(datasets)."),
-                            
-                            a("https://class.coursera.org/regmods-008")
-                   ),
-                   tabPanel("Data Description",
-                            h2("Motor Trend Car Road Tests"),
-                            hr(),
-                            h3("Description"),
-                            helpText("The data was extracted from the 1974 Motor Trend US magazine,",
-                                     " and comprises fuel consumption and 10 aspects of automobile design and performance",
-                                     " for 32 automobiles (1973-74 models)."),
-                            h3("Format"),
-                            p("A data frame from R dataset package."),
-                            
-                            p("  [, 1]   mpg     Miles/(US) gallon"),
-                            p("  [, 2]   cyl	 Number of cylinders"),
-                            p("  [, 3]	 disp	 Displacement (cu.in.)"),
-                            p("  [, 4]	 hp	 Gross horsepower"),
-                            p("  [, 5]	 drat	 Rear axle ratio"),
-                            p("  [, 6]	 wt	 Weight (lb/1000)"),
-                            p("  [, 7]	 qsec	 1/4 mile time"),
-                            p("  [, 8]	 vs	 V/S"),
-                            p("  [, 9]	 am	 Transmission (0 = automatic, 1 = manual)"),
-                            p("  [,10]	 gear	 Number of forward gears"),
-                            p("  [,11]	 carb	 Number of carburetors"),
-                            
-                            h3("Source"),
-                            
-                            p("Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391-411.")
-                   ),
-                   tabPanel("Instructions",
-                            a(""),
-                            hr(),
-                            h2("Instructions"),
-                            
-                            h4(" - Select variable on the dropdown menu (left) of the screen"),
-                            h4(" - click -Boxplot- to see the relationship variable vs performance"),
-                            h4(" - click -Regression Model- to see the results of the Linear Model"),
-                            h4(" - check/uncheck -Show BoxPlot's outliers- to supress /show outliners")
-                   )
-        )
-)
+  navbarPage("Developing Data Products - Shiny Application",
+             tabPanel("Analytical Results",
+                      fluidPage(
+                        headerPanel("Galton Family Data Analysis"),
+                        sidebarLayout(                            
+                        sidebarPanel(sliderInput('mean','Mid-parent Height',value=69.2,min=64,max=76,step=0.1,),     
+     h3('Linear Regression Model for Females and Males (n=934)'),
+     h5('childHeight = 22.63624 + 0.63736*midparentheight'),
+     h5('Goodness-of-Fit'),
+     h5('R-squared = 0.103'),  
+       
+     h3('Linear Regression Model for Females (n=453)'),
+     h5('childHeight = 18.33348 + 0.66075*midparentheight'),
+     h5('Goodness-of-Fit'),
+     h5('R-squared = 0.263'),
+    
+     h3('Linear Regression Model for Males (n=481)'),
+     h5('childHeight = 19.91346 + 0.71327*midparentheight'),
+     h5('Goodness-of-Fit'),
+     h5('R-squared = 0.223'),
+     
+     h3('Multiple Regression Model'),
+     h5('childHeight = 16.5141 + 0.68702*midparentheight + 5.21511*gender'),
+     h5('Goodness-of-Fit'),
+     h5('R-squared = 0.633')
+     
+   ),
+   
+   mainPanel(
+     plotOutput("scatterPlot"),
+     plotOutput("scatterplotMatrix")
+            
+     )
+   )
+  )
+),
+   
+   tabPanel("Regression Analysis",
+            h2("Galton Family Data Analysis"),
+            hr(),
+            h3("First, fit a linear regression model to Galton family data for both genders with child height as the dependent variable and parental mid-height the independent variable. Next, fit gender-specific, linear regression models with heights of sons and daughters as the dependent variables and parental mid-height the independent variable. Finally, fit a multiple regression model with two independent variables, a common slope and different intercepts adjusted for gender.”)
+           ),
+
+   tabPanel("Data Description",
+            h2("Galton Family Data"),
+            hr(),
+            h3("The GaltonFamilies(HistData) dataset lists the individual observations for 934 adult children born to 205 fathers and mothers on which Sir Francis Galton based his conjecture about regression to the mean. Numeric variables include heights of the child, father and mother, as well as the number of children in the family. Gender, female or male, is a factor variable.”)
+           )
+
+))
+   
