@@ -7,14 +7,14 @@ fit1 <- lm(childHeight ~ midparentHeight,data=subset(GaltonFamilies,gender=="fem
 fit2 <- lm(childHeight ~ midparentHeight,data=subset(GaltonFamilies,gender=="male"))
 fit3 <- lm(childHeight ~ midparentHeight+gender,data=GaltonFamilies)
 
-summary(fit)
-summary(fit1)
-summary(fit2)
-summary(fit3)
+summary(fit)	# Summary statistics for linear regression model (Table 1) #
+summary(fit1)	# Summary statistics for linear regression model - female (Table 2a) #
+summary(fit2)	# Summary statistics for linear regression model - male (Table 2b) #
+summary(fit3)	# Summary statistics for multiple regression model (Table 3) #
 
-x <- GaltonFamilies$midparentHeight
-y1 <- 16.5141022+0.6870152*GaltonFamilies$midparentHeight
-y2 <- 16.5141022+5.2151054+0.6870152*GaltonFamilies$midparentHeight
+x <- GaltonFamilies$midparentHeight					# Observed values for sons and daughters (Figure 3) #
+y1 <- 16.5141022+0.6870152*GaltonFamilies$midparentHeight		# Predicted values for daughters (Figure 3a) # 
+y2 <- 16.5141022+5.2151054+0.6870152*GaltonFamilies$midparentHeight	# Predicted values for sons (Figure 3b) # 
 
 shinyServer(
   function(input, output) {
