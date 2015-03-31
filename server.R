@@ -28,8 +28,8 @@ shinyServer(
    output$scatterPlot2 <- renderPlot({
 	plot(jitter(GaltonFamilies$childHeight) ~ GaltonFamilies$midparentHeight,xlab="Average Height of the Parents (in inches)",ylab="Height of the Child (in inches)",main="Figure 3. Scatterplot of Galton Family Data with Fitted Values by Gender ",pch=19,frame.plot=FALSE, col=ifelse(GaltonFamilies$gender=="female", "pink", "light blue"))
            	legend(65,80,pch=c(19,19),col=c("pink","light blue"),c("female", "male"),bty="o",cex=.8)
-	lines(GaltonFamilies$midparentHeight,coefficients(fit3)*GaltonFamilies$midparentHeight 	col="pink",lwd=2)
-	lines(GaltonFamilies$midparentHeight,coefficients(fit3)*GaltonFamilies$midparentHeight 	col="light blue",lwd=2)
+	lines(GaltonFamilies$midparentHeight,coefficients(fit3)*GaltonFamilies$midparentHeight,col="pink",lwd=2)
+	lines(GaltonFamilies$midparentHeight,coefficients(fit3)*GaltonFamilies$midparentHeight,col="light blue",lwd=2)
       })
   }
 )
