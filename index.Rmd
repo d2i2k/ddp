@@ -1,8 +1,8 @@
 ---
-title       : Developing Data Products mtcars
-subtitle    : Relationship between variables (Predictors) and miles per gallon (MPG) 
-author      : Jorge Gonzalez
-job         : Project Manager, Lean Six Sigma Black Belt
+title       : Slidify
+subtitle    : Reproducible pitch presentation
+author      : d2i2k
+job         : 
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
@@ -11,58 +11,64 @@ mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 ---
 
-## Project Objective
+## Galton Family Data (Slide 1)
 
-Motor Trend, an automobile trend magazine is interested in exploring the relationship between a set of variables and miles per gallon (MPG) outcome. In this project, we will analyze the mtcars dataset (Shown below) from the 1974 Motor Trend US magazine to find the variable that  have more impact in the car performance (MPG).
-```{r,echo=FALSE}
-data(mtcars)
-str(mtcars)
-```
+The GaltonFamilies(HistData) dataset lists the individual observations for 934 adult children born to 205 fathers and mothers on which Sir Francis Galton (1886) based regression toward the mean. He wrote that, "the average regression of the offspring is a constant fraction of their respective mid-parental deviations." For height, Galton estimated this regression coefficient to be about two-thirds (2/3).
+
+Galton, F. (1886). "Regression towards mediocrity in hereditary stature". The _Journal of the Anthropological Institute of Great Britain and Ireland_ __15__: 246-263.
 
 --- .class #id 
 
-## Exploratory analysis
+## Scatterplot of Galton Family Data (Slide 2)
 
-Boxplots were produced to show the difference between variables in terms of MPG. As an example the plot below show the variable "transmission" vs MPG. To see other variables  impact click [shiny application](https://developmentdataproducts.shinyapps.io/ddp-master/).
-
-```{r,echo=FALSE}
-data(mtcars)
-mtcars$am <- factor(mtcars$am, labels = c("Automatic", "Manual"))
-boxplot(mpg ~ am, data = mtcars,xlab = "Transmission type", ylab = "Miles per gallon",
- main = "MPG vs Transmission", col = c("red", "steelblue"), 
- names = c("Automatic", "Manual"))
-```
-
-
----
-
-## Regression Model 
-
-One of the most significant predictors in determining the MPG was the type of transmission  (am). The summary for this model is show in the [shiny application](https://developmentdataproducts.shinyapps.io/ddp-master/) under the "Regression model" tab. (select the variable transmission (am) and check intercept = 7.245)
+Scatter plot of Galton family data with height of the son or daughter in inches on the ordinate (y-axis) and parental mid-height in inches on the abcissa (x-axis).  
 
 ```{r}
-lm(formula = mpg ~ am, data = mtcars)
-```                  
+library(HistData)
+data(GaltonFamilies)
+plot(jitter(GaltonFamilies$childHeight) ~ GaltonFamilies$midparentHeight,xlab="Average Height of the Parents (in inches)",ylab="Height of the Child (in inches)",main="Figure 1. Scatterplot of Galton Family Data with Fitted Values",pch=19,frame.plot=FALSE,col=ifelse(GaltonFamilies$gender=="female", "pink", "light blue"))
+legend(65,80,pch=c(19,19),col=c("pink","light blue"),c("female", "male"),bty="o",cex=.8)
+lines(GaltonFamilies$midparentHeight,fitted(fit),col="violet",lwd=2)
+```  
+
+---     
+
+## Linear Regression Models for Galton Family Data (Slide 3)
+
+Gender-specific linear regression models fitted to Galton family data with height of the son or daughter as the dependent variable and parental mid-height as the independent variable.
+
+```{r}
+fit <- lm(childHeight ~ midparentHeight,data=GaltonFamilies)
+fit1 <- lm(childHeight ~ midparentHeight,data=subset(GaltonFamilies,gender=="female"))
+fit2 <- lm(childHeight ~ midparentHeight,data=subset(GaltonFamilies,gender=="male"))
+summary(fit)
+summary(fit1)
+summary(fit2)
+```
+
+--- 
+
+## Scatterplot Matrix of Galton Family Data (Slide 4)
+
+Multiple Scatterplots of Galton family data with height of the son or daughter in inches on the ordinate (y-axis) and parental mid-height in inches on the abcissa (x-axis). Fitted values are predictions from a multiple regression model with child height as the dependent variable, parental mid-height and gender of the child as the independent variables (Slide 4). 
+
+```{r} 
+qplot(midparentHeight,childHeight,colour=gender,data=GaltonFamilies,xlab="Average Height of the Parents (in inches)",ylab="Height of the Child (in inches)",main="Figure 2. Scatterplot matrix of Galton Family Data by Gender of the Child",facets=.~gender,geom=c("point","smooth"),method="lm")
+```
 
 ---
 
-## Conclusion
+## Multiple Regression Model for Galton Family Data (Slide 5)
 
-The transmission type of a car has a significant effect on its fuel efficiency.
+Multiple regression model fitted to Galton family data with child height as the dependent variable, parental mid-height and gender of the child as the independent variables.
 
+```{r} 
+library(ggplot2)
+fit3 <- lm(childHeight ~ midparentHeight + gender,data=GaltonFamilies)
+summary(fit3)
+```     
 
-
-
-
-
-
-
-
-
-Hope you enjoyed this presentation; slidify and shiny are amazing products.
-
-
-Thanks to Coursera for providing the Data Science Specialization.
+---
 
 
 
