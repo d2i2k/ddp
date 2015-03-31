@@ -30,8 +30,9 @@ shinyUI(
    
    mainPanel(
      plotOutput("scatterPlot"),
-     plotOutput("scatterplotMatrix")
-            
+     plotOutput("scatterplotMatrix"),
+     plotOutput("scatterPlot2")
+
      )
    )
   )
