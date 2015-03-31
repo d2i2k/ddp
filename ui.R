@@ -1,7 +1,7 @@
    library(shiny)
 shinyUI(
   navbarPage("Developing Data Products - Shiny Application",
-             tabPanel("Analytical Results",
+             tabPanel("Predicted Values",
                       fluidPage(
                         headerPanel("Galton Family Data Analysis"),
                         sidebarLayout(                            
@@ -38,7 +38,7 @@ shinyUI(
   )
 ),
    
-   tabPanel("Regression Analysis",
+   tabPanel("Regression Models",
             h2("Galton Family Data Analysis"),
             hr(),
             h3("First, fit a linear regression model to Galton family data for both genders with child height as the dependent variable and parental mid-height the independent variable. Next, fit gender-specific, linear regression models with heights of sons and daughters as the dependent variables and parental mid-height the independent variable. Finally, fit a multiple regression model with two independent variables, a common slope and different intercepts adjusted for gender.”)
