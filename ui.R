@@ -6,22 +6,22 @@ shinyUI(
                         headerPanel("Galton Family Data Analysis"),
                         sidebarLayout(                            
                         sidebarPanel(sliderInput('mean','Mid-parent Height',value=69.2,min=64,max=76,step=0.1,),     
-     h3('Linear Regression Model for Females and Males (n=934)'),
+     h3('Table 1. Linear Regression Model for Females and Males (n=934)'),
      h5('childHeight = 22.63624 + 0.63736*midparentheight'),
      h5('Goodness-of-Fit'),
      h5('R-squared = 0.103'),  
        
-     h3('Linear Regression Model for Females (n=453)'),
+     h3('Table 2a. Linear Regression Model for Females (n=453)'),
      h5('childHeight = 18.33348 + 0.66075*midparentheight'),
      h5('Goodness-of-Fit'),
      h5('R-squared = 0.263'),
     
-     h3('Linear Regression Model for Males (n=481)'),
+     h3('Table 2b. Linear Regression Model for Males (n=481)'),
      h5('childHeight = 19.91346 + 0.71327*midparentheight'),
      h5('Goodness-of-Fit'),
      h5('R-squared = 0.223'),
      
-     h3('Multiple Regression Model'),
+     h3('Table 3. Multiple Regression Model'),
      h5('childHeight = 16.5141 + 0.68702*midparentheight + 5.21511*gender'),
      h5('Goodness-of-Fit'),
      h5('R-squared = 0.633')
@@ -29,9 +29,9 @@ shinyUI(
    ),
    
    mainPanel(
-     plotOutput("scatterPlot"),
-     plotOutput("scatterplotMatrix"),
-     plotOutput("scatterPlot2")
+     plotOutput("scatterPlot"),        # Figure 1 #
+     plotOutput("scatterplotMatrix"),  # Figure 2 #
+     plotOutput("scatterPlot2")        # Figure 3 #
 
      )
    )
