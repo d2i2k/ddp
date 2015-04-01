@@ -60,7 +60,7 @@ qplot(midparentHeight,childHeight,colour=gender,data=GaltonFamilies,xlab="Averag
 
 ## Multiple Regression Model for Galton Family Data (Slide 5)
 
-Multiple regression model fitted to Galton family data with child height as the dependent variable, parental mid-height and gender of the child as the independent variables.
+Multiple regression model fitted to Galton family data with child height as the dependent variable, parental mid-height and gender of the child as the independent variables. The estimated common slope between sons and daughters equals 0.69 with 95% confidence interval from (0.61, 0.76) covering two-thirds.
 
 ```{r} 
 library(ggplot2)
