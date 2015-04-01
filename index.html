@@ -1,1 +1,277 @@
-file:///C:/Users/d2i2k/Desktop/index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Slidify</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Slidify">
+  <meta name="author" content="d2i2k">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Slidify</h1>
+    <h2>Reproducible pitch presentation</h2>
+    <p>d2i2k<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Galton Family Data (Slide 1)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The GaltonFamilies(HistData) dataset lists the individual observations for 934 adult children born to 205 fathers and mothers on which Sir Francis Galton (1886) based regression toward the mean. He wrote that, &quot;the average regression of the offspring is a constant fraction of their respective mid-parental deviations.&quot; For height, Galton estimated this regression coefficient to be about two-thirds (2/3).</p>
+
+<p>Galton, F. (1886). &quot;Regression towards mediocrity in hereditary stature&quot;. The <em>Journal of the Anthropological Institute of Great Britain and Ireland</em> <strong>15</strong>: 246-263.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Scatterplot of Galton Family Data (Slide 2)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Scatter plot of Galton family data with height of the son or daughter in inches on the ordinate (y-axis) and parental mid-height in inches on the abcissa (x-axis).  </p>
+
+<pre><code class="r">library(HistData)
+data(GaltonFamilies)
+plot(jitter(GaltonFamilies$childHeight) ~ GaltonFamilies$midparentHeight,xlab=&quot;Average Height of the Parents (in inches)&quot;,ylab=&quot;Height of the Child (in inches)&quot;,main=&quot;Figure 1. Scatterplot of Galton Family Data with Fitted Values&quot;,pch=19,frame.plot=FALSE,col=ifelse(GaltonFamilies$gender==&quot;female&quot;, &quot;pink&quot;, &quot;light blue&quot;))
+legend(65,80,pch=c(19,19),col=c(&quot;pink&quot;,&quot;light blue&quot;),c(&quot;female&quot;, &quot;male&quot;),bty=&quot;o&quot;,cex=.8)
+lines(GaltonFamilies$midparentHeight,fitted(fit),col=&quot;violet&quot;,lwd=2)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-1-1.png" alt="plot of chunk unnamed-chunk-1"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Linear Regression Models for Galton Family Data (Slide 3)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Gender-specific linear regression models fitted to Galton family data with height of the son or daughter as the dependent variable and parental mid-height as the independent variable.</p>
+
+<pre><code class="r">fit &lt;- lm(childHeight ~ midparentHeight,data=GaltonFamilies)
+fit1 &lt;- lm(childHeight ~ midparentHeight,data=subset(GaltonFamilies,gender==&quot;female&quot;))
+fit2 &lt;- lm(childHeight ~ midparentHeight,data=subset(GaltonFamilies,gender==&quot;male&quot;))
+summary(fit)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = childHeight ~ midparentHeight, data = GaltonFamilies)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.9570 -2.6989 -0.2155  2.7961 11.6848 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     22.63624    4.26511   5.307 1.39e-07 ***
+## midparentHeight  0.63736    0.06161  10.345  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.392 on 932 degrees of freedom
+## Multiple R-squared:  0.103,  Adjusted R-squared:  0.102 
+## F-statistic:   107 on 1 and 932 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<pre><code class="r">summary(fit1)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = childHeight ~ midparentHeight, data = subset(GaltonFamilies, 
+##     gender == &quot;female&quot;))
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -6.207 -1.412 -0.045  1.365  6.696 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     18.33348    3.60497   5.086 5.38e-07 ***
+## midparentHeight  0.66075    0.05202  12.701  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.024 on 451 degrees of freedom
+## Multiple R-squared:  0.2634, Adjusted R-squared:  0.2618 
+## F-statistic: 161.3 on 1 and 451 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+<pre><code class="r">summary(fit2)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = childHeight ~ midparentHeight, data = subset(GaltonFamilies, 
+##     gender == &quot;male&quot;))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9.5431 -1.5160  0.1844  1.5082  9.0860 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     19.91346    4.08943   4.869 1.52e-06 ***
+## midparentHeight  0.71327    0.05912  12.064  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.3 on 479 degrees of freedom
+## Multiple R-squared:  0.2331, Adjusted R-squared:  0.2314 
+## F-statistic: 145.6 on 1 and 479 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Scatterplot Matrix of Galton Family Data (Slide 4)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Multiple Scatterplots of Galton family data with height of the son or daughter in inches on the ordinate (y-axis) and parental mid-height in inches on the abcissa (x-axis). Fitted values are predictions from a multiple regression model with child height as the dependent variable, parental mid-height and gender of the child as the independent variables (Slide 4). </p>
+
+<pre><code class="r">qplot(midparentHeight,childHeight,colour=gender,data=GaltonFamilies,xlab=&quot;Average Height of the Parents (in inches)&quot;,ylab=&quot;Height of the Child (in inches)&quot;,main=&quot;Figure 2. Scatterplot matrix of Galton Family Data by Gender of the Child&quot;,facets=.~gender,geom=c(&quot;point&quot;,&quot;smooth&quot;),method=&quot;lm&quot;)
+</code></pre>
+
+<p><img src="assets/fig/unnamed-chunk-3-1.png" alt="plot of chunk unnamed-chunk-3"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Multiple Regression Model for Galton Family Data (Slide 5)</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Multiple regression model fitted to Galton family data with child height as the dependent variable, parental mid-height and gender of the child as the independent variables.</p>
+
+<pre><code class="r">library(ggplot2)
+fit3 &lt;- lm(childHeight ~ midparentHeight + gender,data=GaltonFamilies)
+summary(fit3)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = childHeight ~ midparentHeight + gender, data = GaltonFamilies)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9.5317 -1.4600  0.0979  1.4566  9.1110 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     16.51410    2.73392    6.04 2.22e-09 ***
+## midparentHeight  0.68702    0.03944   17.42  &lt; 2e-16 ***
+## gendermale       5.21511    0.14216   36.69  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.17 on 931 degrees of freedom
+## Multiple R-squared:  0.6332, Adjusted R-squared:  0.6324 
+## F-statistic: 803.6 on 2 and 931 DF,  p-value: &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Galton Family Data (Slide 1)'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Scatterplot of Galton Family Data (Slide 2)'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Linear Regression Models for Galton Family Data (Slide 3)'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Scatterplot Matrix of Galton Family Data (Slide 4)'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Multiple Regression Model for Galton Family Data (Slide 5)'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title=''>
+         6
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
