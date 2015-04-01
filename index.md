@@ -23,7 +23,6 @@ Galton, F. (1886). "Regression towards mediocrity in hereditary stature". The _J
 
 Scatter plot of Galton family data with height of the son or daughter in inches on the ordinate (y-axis) and parental mid-height in inches on the abcissa (x-axis).  
 
-
 ```r
 library(HistData)
 data(GaltonFamilies)
@@ -32,14 +31,11 @@ legend(65,80,pch=c(19,19),col=c("pink","light blue"),c("female", "male"),bty="o"
 lines(GaltonFamilies$midparentHeight,fitted(fit),col="violet",lwd=2)
 ```
 
-![plot of chunk unnamed-chunk-1](assets/fig/unnamed-chunk-1-1.png) 
-
 ---     
 
 ## Linear Regression Models for Galton Family Data (Slide 3)
 
 Gender-specific linear regression models fitted to Galton family data with height of the son or daughter as the dependent variable and parental mid-height as the independent variable.
-
 
 ```r
 fit <- lm(childHeight ~ midparentHeight,data=GaltonFamilies)
@@ -127,7 +123,6 @@ summary(fit2)
 
 Multiple Scatterplots of Galton family data with height of the son or daughter in inches on the ordinate (y-axis) and parental mid-height in inches on the abcissa (x-axis). Fitted values are predictions from a multiple regression model with child height as the dependent variable, parental mid-height and gender of the child as the independent variables (Slide 4). 
 
-
 ```r
 qplot(midparentHeight,childHeight,colour=gender,data=GaltonFamilies,xlab="Average Height of the Parents (in inches)",ylab="Height of the Child (in inches)",main="Figure 2. Scatterplot matrix of Galton Family Data by Gender of the Child",facets=.~gender,geom=c("point","smooth"),method="lm")
 ```
@@ -139,7 +134,6 @@ qplot(midparentHeight,childHeight,colour=gender,data=GaltonFamilies,xlab="Averag
 ## Multiple Regression Model for Galton Family Data (Slide 5)
 
 Multiple regression model fitted to Galton family data with child height as the dependent variable, parental mid-height and gender of the child as the independent variables.
-
 
 ```r
 library(ggplot2)
